@@ -1,6 +1,7 @@
 {
     "builders": [
       {
+        "pull": false,
         "type": "docker",
         "image": "golang:1.8",
         "commit": true,
