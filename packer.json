@@ -1,0 +1,36 @@
+{
+    "builders": [
+      {
+        "type": "docker",
+        "image": "golang:1.8",
+        "commit": true,
+        "changes": [
+          "ENTRYPOINT [\"go\", \"run\", \"/go/calculator.go\"]"
+      ]
+      }
+    ],
+     "provisioners":[
+      {
+        "type": "shell",
+        "inline": [
+          "apt-get update",
+          "go get -u github.com/gorilla/mux"
+        ]
+      },
+       {
+        "type": "file",
+        "source": "calculator.go",
+        "destination": "/go/"
+      }
+    ],
+    "post-processors": [
+      [
+        {
+          "type": "docker-tag",
+          "repository": "gabryelrock/tema12.devops",
+          "tag": "latest",
+          "force": "true"
+        }
+      ]
+    ]
+  }
